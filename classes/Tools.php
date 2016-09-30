@@ -1228,7 +1228,11 @@ class ToolsCore
             $return_str = preg_replace('/[^a-zA-Z0-9\s\'\:\/\[\]\-]/', '', $return_str);
         }
 
-        $return_str = preg_replace('/[\s\'\:\/\[\]\-]+/', ' ', $return_str);
+        if ($allow_accented_chars) {
+            $return_str = preg_replace('/[\s\'\:\/\[\]\-]+/u', ' ', $return_str);
+        } else {
+            $return_str = preg_replace('/[\s\'\:\/\[\]\-]+/', ' ', $return_str);
+        }
         $return_str = str_replace(array(' ', '/'), '-', $return_str);
 
         // If it was not possible to lowercase the string with mb_strtolower, we do it after the transformations.
